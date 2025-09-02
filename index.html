@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YDNT - You Don't Need This</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="brand">
+                    <h1>YDNT</h1>
+                    <span class="tagline">You Don't Need This</span>
+                </div>
+                
+                <nav class="nav">
+                    <a href="#collection" class="nav-link">Collection</a>
+                    <a href="#categories" class="nav-link">Categories</a>
+                    <a href="#featured" class="nav-link">Featured</a>
+                    <a href="#about" class="nav-link">About</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+                        <button id="searchBtn" class="search-btn">🔍</button>
+                    </div>
+                    <button class="contact-btn">Contact</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Carousel -->
+    <section class="hero-section">
+        <div class="hero-carousel" id="heroCarousel">
+            <div class="carousel-container">
+                <div class="carousel-slides" id="carouselSlides">
+                    <!-- Slides will be populated by JavaScript -->
+                </div>
+                <button class="carousel-btn carousel-prev" id="carouselPrev">‹</button>
+                <button class="carousel-btn carousel-next" id="carouselNext">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots">
+                <!-- Dots will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Hero Video -->
+        <div class="hero-video-container" id="heroVideoContainer">
+            <video id="heroVideo" autoplay muted loop>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- Premium Collection -->
+    <section class="collection-section" id="collection">
+        <div class="container">
+            <h2 class="section-title">Premium Collection</h2>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <select id="ratingFilter" class="filter-select">
+                        <option value="">All Ratings</option>
+                        <option value="5">5 Stars</option>
+                        <option value="4">4+ Stars</option>
+                        <option value="3">3+ Stars</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <select id="sortFilter" class="filter-select">
+                        <option value="rating">Sort by Rating</option>
+                        <option value="name">Sort by Name</option>
+                        <option value="category">Sort by Category</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading premium electronics...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">×</button>
+            <div class="modal-content" id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>YDNT</h3>
+                    <p>Premium electronics you probably don't need, but definitely want.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#terms">Terms</a>
+                    <a href="#privacy">Privacy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 YDNT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
