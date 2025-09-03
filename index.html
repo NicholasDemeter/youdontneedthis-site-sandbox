@@ -3,140 +3,1484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YDNT - You Don't Need This</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>You Don't Need This - Premium Tech Boutique</title>
+    <style>
+        :root {
+            --bg-primary: #0b0b12;
+            --bg-card: #12121a;
+            --text-primary: #e5e7eb;
+            --text-muted: #a3a3a3;
+            --border-color: #222;
+            --accent-purple: #8b5cf6;
+            --accent-gold: #facc15;
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 4rem 0;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 11, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-purple);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .search-btn, .contact-btn {
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .contact-btn {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+        }
+
+        .search-btn:hover, .contact-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-title .you-dont {
+            color: var(--accent-purple);
+            display: block;
+        }
+
+        .hero-title .need-this {
+            color: var(--accent-gold);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-btn {
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-btn.primary {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .featured-section {
+            padding: 6rem 2rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .featured-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .carousel-container {
+            position: relative;
+        }
+
+        .carousel-label {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            aspect-ratio: 16/10;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            position: relative;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius);
+        }
+
+        .carousel-content {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-item-title {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .carousel-item-price {
+            font-size: 0.875rem;
+            color: var(--accent-purple);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .carousel-nav:hover {
+            background: var(--accent-purple);
+        }
+
+        .carousel-prev {
+            left: 0.5rem;
+        }
+
+        .carousel-next {
+            right: 0.5rem;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.2);
+        }
+
+        .hero-video-container {
+            position: relative;
+        }
+
+        .hero-video-label {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-video {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .products-section {
+            padding: 6rem 2rem;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1f1b2e 0%, #0e0b16 100%);
+            overflow: hidden;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-image-container .no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .available-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: var(--accent-purple);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .product-rating {
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .product-description {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .view-details-btn {
+            width: 100%;
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .view-details-btn:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+        }
+
+        .lot-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .lot-detail-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .lot-detail-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .lot-detail-title {
+            flex: 1;
+        }
+
+        .lot-detail-title h2 {
+            color: var(--accent-purple);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lot-detail-title .lot-id {
+            color: var(--accent-gold);
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .close-btn {
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .close-btn:hover {
+            background: #7c3aed;
+        }
+
+        .lot-detail-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .media-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .media-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .media-count {
+            background: var(--accent-purple);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .main-media-container {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .main-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .media-nav:hover {
+            background: var(--accent-purple);
+        }
+
+        .media-prev {
+            left: 1rem;
+        }
+
+        .media-next {
+            right: 1rem;
+        }
+
+        .media-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 0.5rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .media-thumbnail {
+            aspect-ratio: 1;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .media-thumbnail:hover,
+        .media-thumbnail.active {
+            border-color: var(--accent-purple);
+        }
+
+        .media-thumbnail img,
+        .media-thumbnail video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            pointer-events: none;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-block {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+        }
+
+        .info-block h4 {
+            color: var(--accent-purple);
+            margin-bottom: 1rem;
+        }
+
+        .info-block p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .specs-list {
+            list-style: none;
+            color: var(--text-muted);
+        }
+
+        .specs-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .specs-list li:last-child {
+            border-bottom: none;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            color: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .price-section .price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-section .rating {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .hero-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .featured-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .lot-detail-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .lot-detail-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="brand">
-                    <h1>YDNT</h1>
-                    <span class="tagline">You Don't Need This</span>
-                </div>
-                
-                <nav class="nav">
-                    <a href="#collection" class="nav-link">Collection</a>
-                    <a href="#categories" class="nav-link">Categories</a>
-                    <a href="#featured" class="nav-link">Featured</a>
-                    <a href="#about" class="nav-link">About</a>
-                </nav>
-                
-                <div class="header-actions">
-                    <div class="search-container">
-                        <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
-                        <button id="searchBtn" class="search-btn">🔍</button>
-                    </div>
-                    <button class="contact-btn">Contact</button>
-                </div>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>You Don't Need This</span>
             </div>
+            <nav class="nav">
+                <a href="#collection">Collection</a>
+                <a href="#categories">Categories</a>
+                <a href="#featured">Featured</a>
+                <a href="#about">About</a>
+                <button class="search-btn">🔍 Search</button>
+                <button class="contact-btn">💬 Contact</button>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero Carousel -->
-    <section class="hero-section">
-        <div class="hero-carousel" id="heroCarousel">
-            <div class="carousel-container">
-                <div class="carousel-slides" id="carouselSlides">
-                    <!-- Slides will be populated by JavaScript -->
+    <section class="hero-banner section">
+        <div class="hero-content">
+            <div class="hero-main">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="you-dont">You Don't</span>
+                        <span class="need-this">Need This</span>
+                    </h1>
+                    <p class="hero-subtitle">Curated premium tech for those who appreciate the extraordinary. 100+ exclusive items that redefine luxury gadgetry.</p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#collection" class="hero-btn primary">
+                            ⚡ Explore Collection
+                        </a>
+                        <a href="#featured" class="hero-btn secondary">
+                            Featured Items
+                        </a>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="totalProducts">100+</div>
+                            <div class="stat-label">Premium Items</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">$2M+</div>
+                            <div class="stat-label">Total Value</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">5★</div>
+                            <div class="stat-label">Curation Rating</div>
+                        </div>
+                    </div>
                 </div>
-                <button class="carousel-btn carousel-prev" id="carouselPrev">‹</button>
-                <button class="carousel-btn carousel-next" id="carouselNext">›</button>
             </div>
-            <div class="carousel-dots" id="carouselDots">
-                <!-- Dots will be populated by JavaScript -->
-            </div>
-        </div>
-        
-        <!-- Hero Video -->
-        <div class="hero-video-container" id="heroVideoContainer">
-            <video id="heroVideo" autoplay muted loop>
-                <source src="" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
         </div>
     </section>
 
-    <!-- Premium Collection -->
-    <section class="collection-section" id="collection">
-        <div class="container">
-            <h2 class="section-title">Premium Collection</h2>
-            
-            <!-- Filters -->
-            <div class="filters">
-                <div class="filter-group">
-                    <select id="categoryFilter" class="filter-select">
-                        <option value="">All Categories</option>
-                    </select>
+    <div class="section-divider"></div>
+
+    <section class="featured-section section" id="featured">
+        <div class="featured-container">
+            <h2 class="featured-title">Featured Collection</h2>
+            <div class="featured-content">
+                <div class="carousel-container">
+                    <div class="carousel-label">🏆 Top Rated Items</div>
+                    <div class="carousel">
+                        <div class="carousel-track" id="carouselTrack">
+                        </div>
+                        <button class="carousel-nav carousel-prev" onclick="prevSlide()">‹</button>
+                        <button class="carousel-nav carousel-next" onclick="nextSlide()">›</button>
+                    </div>
+                    <div class="carousel-dots" id="carouselDots">
+                    </div>
                 </div>
-                
-                <div class="filter-group">
-                    <select id="ratingFilter" class="filter-select">
-                        <option value="">All Ratings</option>
-                        <option value="5">5 Stars</option>
-                        <option value="4">4+ Stars</option>
-                        <option value="3">3+ Stars</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <select id="sortFilter" class="filter-select">
-                        <option value="rating">Sort by Rating</option>
-                        <option value="name">Sort by Name</option>
-                        <option value="category">Sort by Category</option>
-                    </select>
+
+                <div class="hero-video-container">
+                    <div class="hero-video-label">🎥 Featured: Surface Studio 2</div>
+                    <video class="hero-video" controls poster="" id="heroVideo">
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
-            
-            <!-- Product Grid -->
-            <div class="product-grid" id="productGrid">
-                <!-- Products will be populated by JavaScript -->
-            </div>
-            
-            <!-- Loading State -->
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="products-section section" id="collection">
+        <div class="products-container">
+            <h2 class="products-title">Complete Collection</h2>
+
             <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading premium electronics...</p>
+                <p>Loading premium collection...</p>
+            </div>
+
+            <div class="products-grid" id="productsGrid" style="display: none;">
             </div>
         </div>
     </section>
 
-    <!-- Product Detail Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-            <button class="modal-close" id="modalClose">×</button>
-            <div class="modal-content" id="modalContent">
-                <!-- Modal content will be populated by JavaScript -->
+    <div class="lot-detail-modal" id="lotDetailModal">
+        <div class="lot-detail-content">
+            <div class="lot-detail-header">
+                <div class="lot-detail-title">
+                    <h2 id="lotDetailName">Loading...</h2>
+                    <div class="lot-id" id="lotDetailId">LOT_XXX</div>
+                </div>
+                <button class="close-btn" onclick="closeLotDetail()">✕ Close</button>
+            </div>
+            
+            <div class="lot-detail-body">
+                <div class="media-section">
+                    <h3>📷 Media Gallery <span class="media-count" id="mediaCount">0</span></h3>
+                    
+                    <div class="main-media-container">
+                        <img id="mainMedia" class="main-media" src="" alt="Main product image">
+                        <button class="media-nav media-prev" onclick="prevMedia()">‹</button>
+                        <button class="media-nav media-next" onclick="nextMedia()">›</button>
+                    </div>
+                    
+                    <div class="media-thumbnails" id="mediaThumbnails">
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="price-section">
+                        <div class="rating" id="lotDetailRating">★★★★★</div>
+                        <div class="price" id="lotDetailPrice">$XXX-$XXX</div>
+                        <div id="lotDetailCategory">Category</div>
+                    </div>
+                    
+                    <div class="info-block">
+                        <h4>📝 Description</h4>
+                        <p id="lotDetailDescription">Loading description...</p>
+                    </div>
+                    
+                    <div class="info-block">
+                        <h4>⚙️ Specifications</h4>
+                        <ul class="specs-list" id="lotDetailSpecs">
+                            <li>Loading specifications...</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="whatsapp-btn" id="whatsappBtn" target="_blank">
+                        📱 Contact via WhatsApp
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>YDNT</h3>
-                    <p>Premium electronics you probably don't need, but definitely want.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#terms">Terms</a>
-                    <a href="#privacy">Privacy</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 YDNT. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <script>
+        const assetsBase = 'https://raw.githubusercontent.com/NicholasDemeter/youdontneedthis-inventory/main';
+        
+        let allProducts = [];
+        let workingThumbnails = [];
+        let carouselItems = [];
+        let currentSlide = 0;
+        let siteConfig = {
+            whatsappNumber: "15551234567",
+            whatsappTemplate: "Hi! I'm interested in {PRODUCT_NAME} ({LOT_ID}). Is this still available?",
+            heroVideo: "Hero_Media.mp4"
+        };
+        let currentLotMedia = [];
+        let currentMediaIndex = 0;
 
-    <script src="app.js"></script>
+        const folderCorrections = {
+            'LOT_001_Microsoft_Surface_Go_3_10_5_Touchscreen_Intel_Core_i3_8GB_Memory_128GB_SSD': 
+            'LOT_001_Microsoft_Surface_Go_3_10_5_Touchscreen_Intel_R_CoreTM_i3_8GB_Memory_128GB_SSD'
+        };
+
+        async function loadCSV() {
+            try {
+                const response = await fetch('products.csv');
+                const csvText = await response.text();
+                
+                const lines = csvText.split('\n');
+                const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+                
+                allProducts = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    
+                    const values = parseCSVLine(line);
+                    if (values.length < headers.length) continue;
+                    
+                    const product = {};
+                    headers.forEach((header, index) => {
+                        product[header] = values[index] || '';
+                    });
+                    
+                    if (product.LOT && product.LOT.trim()) {
+                        allProducts.push(product);
+                    }
+                }
+                
+                console.log(`Loaded ${allProducts.length} products from CSV`);
+                return true;
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                return false;
+            }
+        }
+
+        function parseCSVLine(line) {
+            const values = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    values.push(current.trim().replace(/^"|"$/g, ''));
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            
+            values.push(current.trim().replace(/^"|"$/g, ''));
+            return values;
+        }
+
+        async function testAllThumbnails() {
+            console.log('Testing thumbnails for all products...');
+            workingThumbnails = [];
+            
+            const batchSize = 10;
+            
+            for (let i = 0; i < allProducts.length; i += batchSize) {
+                const batch = allProducts.slice(i, i + batchSize);
+                const promises = batch.map(testProductThumbnail);
+                const results = await Promise.all(promises);
+                
+                results.forEach(result => {
+                    if (result && result.hasImage) {
+                        workingThumbnails.push(result);
+                    }
+                });
+                
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            console.log(`Found ${workingThumbnails.length} working thumbnails`);
+        }
+
+        async function testProductThumbnail(product) {
+            const lot = product.LOT;
+            let folderName = product.FOLDER_NAME;
+            
+            if (folderCorrections[folderName]) {
+                folderName = folderCorrections[folderName];
+            }
+            
+            const thumbnailFilename = `${lot}_THUMBNAIL.jpg`;
+            const thumbnailUrl = `${assetsBase}/${folderName}/${thumbnailFilename}`;
+            
+            try {
+                const response = await fetch(thumbnailUrl, { method: 'HEAD' });
+                const hasImage = response.status === 200;
+                
+                return {
+                    ...product,
+                    folderName,
+                    thumbnailUrl,
+                    hasImage,
+                    status: response.status
+                };
+            } catch (error) {
+                return {
+                    ...product,
+                    folderName,
+                    thumbnailUrl,
+                    hasImage: false,
+                    status: 'ERROR'
+                };
+            }
+        }
+
+        function generateStars(rating) {
+            const ratingNum = parseInt(rating.toString().replace(/[^0-9]/g, ''));
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= ratingNum ? '★' : '☆';
+            }
+            return stars;
+        }
+
+        function setupCarousel() {
+            const fiveStarProducts = workingThumbnails.filter(p => {
+                const rating = parseInt(p.COOLNESS_RATING.toString().replace(/[^0-9]/g, ''));
+                return rating >= 5;
+            });
+            
+            if (fiveStarProducts.length < 5) {
+                const fourStarProducts = workingThumbnails.filter(p => {
+                    const rating = parseInt(p.COOLNESS_RATING.toString().replace(/[^0-9]/g, ''));
+                    return rating === 4;
+                });
+                carouselItems = [...fiveStarProducts, ...fourStarProducts].slice(0, 7);
+            } else {
+                carouselItems = fiveStarProducts.slice(0, 7);
+            }
+            
+            const carouselTrack = document.getElementById('carouselTrack');
+            const carouselDots = document.getElementById('carouselDots');
+            
+            carouselTrack.innerHTML = carouselItems.map(item => `
+                <div class="carousel-item" onclick="openLotDetail('${item.LOT}')">
+                    <img src="${item.thumbnailUrl}" alt="${item.OFFICIAL_NAME}" loading="lazy">
+                    <div class="carousel-content">
+                        <div class="carousel-item-title">${item.OFFICIAL_NAME.substring(0, 30)}...</div>
+                        <div class="carousel-item-price">${item.PRICE}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            carouselDots.innerHTML = carouselItems.map((_, index) => `
+                <div class="carousel-dot ${index === 0 ? 'active' : ''}" onclick="goToSlide(${index})"></div>
+            `).join('');
+            
+            setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % carouselItems.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function setupHeroVideo() {
+            const heroVideo = document.getElementById('heroVideo');
+            const heroVideoUrl = `${assetsBase}/${siteConfig.heroVideo}`;
+            
+            heroVideo.src = heroVideoUrl;
+            heroVideo.poster = workingThumbnails.find(p => p.LOT === 'LOT_002')?.thumbnailUrl || '';
+        }
+
+        function createProductCard(product) {
+            const stars = generateStars(product.COOLNESS_RATING);
+            const ratingNum = parseInt(product.COOLNESS_RATING.toString().replace(/[^0-9]/g, ''));
+            const ratingDisplay = `(${ratingNum}/5)`;
+            
+            return `
+                <div class="product-card" onclick="openLotDetail('${product.LOT}')">
+                    <div class="product-image-container">
+                        ${product.hasImage ? 
+                            `<img src="${product.thumbnailUrl}" alt="${product.OFFICIAL_NAME}" loading="lazy">` :
+                            `<div class="no-image">
+                                <div>📷<br>No Image<br>Available</div>
+                            </div>`
+                        }
+                        <div class="available-badge">Available</div>
+                        <div class="category-badge">${product.CATEGORY}</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">${product.OFFICIAL_NAME}</h3>
+                        <div class="product-rating">${stars} ${ratingDisplay}</div>
+                        <div class="product-description">${product.DESCRIPTION || 'Premium tech item from our curated collection.'}</div>
+                        <div class="product-price">${product.PRICE}</div>
+                        <button class="view-details-btn">
+                            👁 View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            
+            const productsWithImages = workingThumbnails;
+            const productsWithoutImages = allProducts.filter(p => 
+                !workingThumbnails.find(w => w.LOT === p.LOT)
+            ).map(p => ({ ...p, hasImage: false, status: '404' }));
+            
+            const allProductsToRender = [...productsWithImages, ...productsWithoutImages];
+            
+            productsGrid.innerHTML = allProductsToRender.map(createProductCard).join('');
+            productsGrid.style.display = 'grid';
+            
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        async function openLotDetail(lotId) {
+            console.log(`Opening lot detail for ${lotId}`);
+            
+            const product = allProducts.find(p => p.LOT === lotId) || 
+                           workingThumbnails.find(p => p.LOT === lotId);
+            
+            if (!product) {
+                console.error(`Product not found: ${lotId}`);
+                return;
+            }
+            
+            const modal = document.getElementById('lotDetailModal');
+            modal.style.display = 'block';
+            
+            document.getElementById('lotDetailName').textContent = product.OFFICIAL_NAME;
+            document.getElementById('lotDetailId').textContent = lotId;
+            document.getElementById('lotDetailRating').textContent = generateStars(product.COOLNESS_RATING) + ` (${product.COOLNESS_RATING})`;
+            document.getElementById('lotDetailPrice').textContent = product.PRICE;
+            document.getElementById('lotDetailCategory').textContent = product.CATEGORY;
+            document.getElementById('lotDetailDescription').textContent = product.DESCRIPTION || 'No description available.';
+            
+            const specsContainer = document.getElementById('lotDetailSpecs');
+            if (product.SPECIFICATIONS) {
+                const specs = product.SPECIFICATIONS.split('|').map(spec => spec.trim()).filter(spec => spec);
+                specsContainer.innerHTML = specs.map(spec => `<li>${spec}</li>`).join('');
+            } else {
+                specsContainer.innerHTML = '<li>No specifications available.</li>';
+            }
+            
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const message = siteConfig.whatsappTemplate
+                .replace('{PRODUCT_NAME}', product.OFFICIAL_NAME)
+                .replace('{LOT_ID}', lotId);
+            const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
+            whatsappBtn.href = whatsappUrl;
+            
+            await loadLotMedia(lotId, product.folderName || product.FOLDER_NAME);
+        }
+
+        async function loadLotMedia(lotId, folderName) {
+            if (folderCorrections[folderName]) {
+                folderName = folderCorrections[folderName];
+            }
+            
+            const mediaCount = document.getElementById('mediaCount');
+            
+            currentLotMedia = await discoverAllLotMedia(lotId, folderName);
+            currentMediaIndex = 0;
+            
+            mediaCount.textContent = currentLotMedia.length;
+            
+            if (currentLotMedia.length > 0) {
+                setupMediaGallery();
+            } else {
+                document.getElementById('mainMedia').src = '';
+                document.getElementById('mediaThumbnails').innerHTML = '<div style="text-align: center; color: var(--text-muted);">No media found</div>';
+            }
+        }
+
+        function setupMediaGallery() {
+            const mainMedia = document.getElementById('mainMedia');
+            const thumbnailsContainer = document.getElementById('mediaThumbnails');
+            
+            if (currentLotMedia.length > 0) {
+                const currentMedia = currentLotMedia[currentMediaIndex];
+                mainMedia.src = currentMedia.url;
+                mainMedia.alt = currentMedia.filename;
+            }
+            
+            thumbnailsContainer.innerHTML = currentLotMedia.map((item, index) => {
+                const activeClass = index === currentMediaIndex ? 'active' : '';
+                if (item.type === 'video') {
+                    return `
+                        <div class="media-thumbnail ${activeClass}" onclick="selectMedia(${index})">
+                            <video preload="metadata">
+                                <source src="${item.url}" type="video/mp4">
+                            </video>
+                            <div class="video-indicator">▶</div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="media-thumbnail ${activeClass}" onclick="selectMedia(${index})">
+                            <img src="${item.url}" alt="${item.filename}" loading="lazy">
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        function selectMedia(index) {
+            currentMediaIndex = index;
+            setupMediaGallery();
+        }
+
+        function nextMedia() {
+            if (currentLotMedia.length > 0) {
+                currentMediaIndex = (currentMediaIndex + 1) % currentLotMedia.length;
+                setupMediaGallery();
+            }
+        }
+
+        function prevMedia() {
+            if (currentLotMedia.length > 0) {
+                currentMediaIndex = (currentMediaIndex - 1 + currentLotMedia.length) % currentLotMedia.length;
+                setupMediaGallery();
+            }
+        }
+
+        async function discoverAllLotMedia(lotId, folderName) {
+            const media = [];
+            
+            const standardPhotoNames = [
+                `${lotId}_THUMBNAIL.jpg`,
+                `${lotId}_MAIN.jpg`,
+                `${lotId}_FRONT.jpg`,
+                `${lotId}_BACK.jpg`,
+                `${lotId}_SIDE.jpg`,
+                `${lotId}_DETAIL.jpg`
+            ];
+            
+            const numberedPhotoNames = [];
+            for (let i = 1; i <= 20; i++) {
+                numberedPhotoNames.push(`${lotId}_${i}.jpg`);
+                numberedPhotoNames.push(`${lotId}_${i.toString().padStart(2, '0')}.jpg`);
+            }
+            
+            const videoNames = [
+                `${lotId}_DEMO.mp4`,
+                `${lotId}_01.mp4`,
+                `${lotId}_02.mp4`,
+                `${lotId}_MAIN.mp4`,
+                `${lotId}_REVIEW.mp4`,
+                `${lotId}_UNBOXING.mp4`,
+                `${lotId}_VIDEO.mp4`,
+                `${lotId}.mp4`
+            ];
+            
+            const allPhotoNames = [...standardPhotoNames, ...numberedPhotoNames];
+            
+            console.log(`Discovering media for ${lotId}...`);
+            
+            for (const filename of allPhotoNames) {
+                const url = `${assetsBase}/${folderName}/Photos/${filename}`;
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    if (response.status === 200) {
+                        media.push({ filename, url, type: 'photo' });
+                        console.log(`✓ Found photo: ${filename}`);
+                    }
+                } catch (error) {
+                }
+            }
+            
+            for (const filename of videoNames) {
+                const url = `${assetsBase}/${folderName}/Videos/${filename}`;
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    if (response.status === 200) {
+                        media.push({ filename, url, type: 'video' });
+                        console.log(`✓ Found video: ${filename}`);
+                    }
+                } catch (error) {
+                }
+            }
+            
+            for (const filename of allPhotoNames) {
+                const url = `${assetsBase}/${folderName}/${filename}`;
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    if (response.status === 200) {
+                        if (!media.find(m => m.filename === filename)) {
+                            media.push({ filename, url, type: 'photo' });
+                            console.log(`✓ Found photo in root: ${filename}`);
+                        }
+                    }
+                } catch (error) {
+                }
+            }
+            
+            console.log(`Found ${media.length} media files for ${lotId}`);
+            return media;
+        }
+
+        function closeLotDetail() {
+            const modal = document.getElementById('lotDetailModal');
+            modal.style.display = 'none';
+        }
+
+        document.getElementById('lotDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLotDetail();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLotDetail();
+            }
+        });
+
+        async function init() {
+            console.log('=== YDNT WEBSITE INITIALIZATION ===');
+            
+            const csvLoaded = await loadCSV();
+            if (!csvLoaded) {
+                document.getElementById('loading').innerHTML = '<p style="color: #ef4444;">Failed to load CSV data</p>';
+                return;
+            }
+            
+            await testAllThumbnails();
+            setupCarousel();
+            setupHeroVideo();
+            renderProducts();
+            
+            console.log('🎉 YDNT WEBSITE READY! 🚀');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
+
