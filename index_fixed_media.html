@@ -764,12 +764,16 @@
         // Load and Display Products
         let allProducts = [];
         const assetsBase = 'https://raw.githubusercontent.com/NicholasDemeter/youdontneedthis-inventory/main';
+        
+        // Embedded CSV data to avoid CORS issues
+        const csvData = `LOT,FOLDER_NAME,OFFICIAL_NAME,COOLNESS_RATING,DESCRIPTION,SPECIFICATIONS,PRICE,PRICE ESTIMATE HYPERLINKS,CATEGORY
+LOT_001,LOT_001_Microsoft_Surface_Go_3_10_5_Touchscreen_Intel_Core_i3_8GB_Memory_128GB_SSD,Microsoft Surface Go 3 - 10.5_ Touchscreen - Intel® Core™ i3 - 8GB Memory - 128GB SSD,4 Stars,"The Microsoft Surface Go 3 is a versatile 2-in-1 device that combines the portability of a tablet with the productivity of a laptop. Featuring a 10.5-inch touchscreen, Intel Core i3 processor, and full Windows 11 experience, it's perfect for students, professionals, and anyone needing computing power on the go.","Display | 10.5-inch PixelSense touchscreen (1920 x 1280) | Processor | Intel Core i3-10100Y (dual-core, up to 3.9GHz) | Memory | 8GB LPDDR3 RAM | Storage | 128GB SSD | Graphics | Intel UHD Graphics 615 | Camera | 8MP rear, 5MP front with Windows Hello face sign-in | Ports | USB-C, 3.5mm headphone jack, Surface Connect, microSDXC | Battery Life | Up to 11 hours | Weight | 1.2 lbs (tablet only) | OS | Windows 11 Home | Accessories | Compatible with Surface Pen and Type Cover (sold separately)",$399-$549,https://www.microsoft.com/en-us/surface/devices/surface-go-3,Gadgets > Portable Display
+LOT_002,LOT_002_Microsoft_Surface_Studio_2_All_in_One_Desktop,Microsoft Surface Studio 2 All-in-One Desktop,6,"The Microsoft Surface Studio 2 is a premium all-in-one desktop computer featuring a stunning 28-inch PixelSense touchscreen that transforms into a digital canvas. Designed for creative professionals, it combines powerful performance with innovative design, including the unique Zero Gravity Hinge and Surface Dial compatibility.","Display | 28-inch PixelSense touchscreen (4500 x 3000, 192 PPI) | Processor | 7th Gen Intel Core i7-7820HQ | Graphics | NVIDIA GeForce GTX 1070 (8GB GDDR5) | Memory | 16GB or 32GB RAM | Storage | 1TB or 2TB SSD | Hinge | Zero Gravity Hinge (20° to near-flat positioning) | Inputs | Surface Pen and touch support, Surface Dial compatibility | Ports | 4x USB 3.0, USB-C, SD card reader, 3.5mm audio | Connectivity | Wi-Fi 802.11ac, Bluetooth 4.0, Gigabit Ethernet | Dimensions | 25.1"" x 17.3"" x 12.5""","$3,499-$4,299",https://www.microsoft.com/en-us/d/surface-studio-2/8vlfqc3597k4,Gadgets > Portable Display
+LOT_009,LOT_009_NuPhy_75_Keyboard,NuPhy 75 Keyboard,4 Stars,"The NuPhy Air75 V2 is a premium 75% wireless mechanical keyboard featuring ultra-low profile switches and premium build quality. With triple connectivity modes, hot-swappable switches, and Mac/Windows compatibility, it delivers exceptional typing experience in a compact, portable design perfect for professionals and enthusiasts.","Layout | 75% compact layout (82 keys) | Switches | NuPhy low-profile mechanical switches (multiple options) | Connectivity | 2.4GHz wireless, Bluetooth 5.0, USB-C wired | Compatibility | macOS and Windows with dedicated keycaps | Battery | 4000mAh rechargeable (up to 48 hours use) | Construction | CNC aluminum case | Hot-swappable | Yes, for low-profile switches | Backlighting | South-facing RGB | Dimensions | 323 x 140 x 22mm | Weight | 780g | Keycaps | PBT double-shot",$119-$134,https://nuphy.com/products/air75-v2,PC`;
 
         async function loadProducts() {
             try {
-                const response = await fetch('products.csv');
-                const csvText = await response.text();
-                const lines = csvText.trim().split('\n');
+                const lines = csvData.trim().split('\n');
                 const headers = lines[0].split(',');
                 
                 allProducts = lines.slice(1).map(line => {
@@ -781,12 +785,13 @@
                     return product;
                 });
 
-                displayProducts(allProducts);
+                console.log(`Loaded ${allProducts.length} products`);
                 loadCarousel();
+                displayProducts(allProducts);
                 loadHeroVideo();
             } catch (error) {
                 console.error('Error loading products:', error);
-                document.getElementById('productsGrid').innerHTML = '<p>Error loading products. Please try again later.</p>';
+                document.getElementById('productGrid').innerHTML = '<p>Error loading products. Please try again later.</p>';
             }
         }
 
@@ -870,16 +875,23 @@
                 if (response.ok) {
                     heroVideo.querySelector('source').src = heroVideoUrl;
                     heroVideo.load();
+                    
+                    // Ensure autoplay works
+                    heroVideo.addEventListener('loadeddata', () => {
+                        heroVideo.play().catch(e => {
+                            console.log('Autoplay prevented, user interaction required');
+                        });
+                    });
+                    
                     console.log('Hero video loaded successfully');
                 } else {
-                    console.log('Hero video not found, using fallback');
-                    // Fallback to LOT_002 video
-                    const fallbackUrl = `${assetsBase}/LOT_002_Microsoft_Surface_Studio_2_All_in_One_Desktop/Videos/LOT_002_1.mp4`;
-                    heroVideo.querySelector('source').src = fallbackUrl;
-                    heroVideo.load();
+                    console.log('Hero video not found');
+                    // Hide video container if no video available
+                    heroVideo.style.display = 'none';
                 }
             } catch (error) {
                 console.error('Error loading hero video:', error);
+                heroVideo.style.display = 'none';
             }
         }
 
@@ -888,35 +900,53 @@
             const media = [];
             const lotId = product.LOT;
             const folderName = product.FOLDER_NAME;
+            const foundFiles = new Set(); // Track found files to avoid duplicates
 
             console.log(`Discovering media for ${lotId}...`);
 
             // Add thumbnail first
             const thumbnailUrl = `${assetsBase}/${folderName}/${lotId}_THUMBNAIL.jpg`;
             media.push({ filename: `${lotId}_THUMBNAIL.jpg`, url: thumbnailUrl, type: 'image' });
+            foundFiles.add(`${lotId}_THUMBNAIL.jpg`);
 
-            // Comprehensive image discovery in Photos folder
+            // Optimized image discovery in Photos folder
             const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-            const imagePatterns = [
-                // Standard numbered patterns
-                ...Array.from({length: 100}, (_, i) => `${lotId}_${i + 1}`),
-                // Special patterns like LOT_009_75
-                `${lotId}_75`, `${lotId}_100`, `${lotId}_150`, `${lotId}_200`,
-                // Alternative patterns
-                `${lotId}_A`, `${lotId}_B`, `${lotId}_C`, `${lotId}_D`,
-                `${lotId}_main`, `${lotId}_detail`, `${lotId}_side`, `${lotId}_back`
-            ];
-
-            // Check all image patterns
-            for (const pattern of imagePatterns) {
+            
+            // Check numbered patterns 1-20 (most common)
+            for (let i = 1; i <= 20; i++) {
                 for (const ext of imageExtensions) {
-                    const filename = `${pattern}.${ext}`;
+                    const filename = `${lotId}_${i}.${ext}`;
+                    if (foundFiles.has(filename)) continue;
+                    
                     const imageUrl = `${assetsBase}/${folderName}/Photos/${filename}`;
                     
                     try {
                         const response = await fetch(imageUrl, { method: 'HEAD' });
                         if (response.ok) {
                             media.push({ filename, url: imageUrl, type: 'image' });
+                            foundFiles.add(filename);
+                            console.log(`Found image: ${filename} for ${lotId}`);
+                        }
+                    } catch (e) {
+                        // Continue checking
+                    }
+                }
+            }
+
+            // Check special patterns
+            const specialPatterns = ['75', '100', '150', '200', 'A', 'B', 'C', 'D', 'main', 'detail', 'side', 'back'];
+            for (const pattern of specialPatterns) {
+                for (const ext of imageExtensions) {
+                    const filename = `${lotId}_${pattern}.${ext}`;
+                    if (foundFiles.has(filename)) continue;
+                    
+                    const imageUrl = `${assetsBase}/${folderName}/Photos/${filename}`;
+                    
+                    try {
+                        const response = await fetch(imageUrl, { method: 'HEAD' });
+                        if (response.ok) {
+                            media.push({ filename, url: imageUrl, type: 'image' });
+                            foundFiles.add(filename);
                             console.log(`Found image: ${filename} for ${lotId}`);
                         }
                     } catch (e) {
@@ -928,19 +958,22 @@
             // Video discovery in Videos folder
             const videoExtensions = ['mp4', 'mov', 'webm'];
             const videoPatterns = [
-                ...Array.from({length: 20}, (_, i) => `${lotId}_${i + 1}`),
+                ...Array.from({length: 10}, (_, i) => `${lotId}_${i + 1}`),
                 `${lotId}_demo`, `${lotId}_review`, `${lotId}_unboxing`
             ];
 
             for (const pattern of videoPatterns) {
                 for (const ext of videoExtensions) {
                     const filename = `${pattern}.${ext}`;
+                    if (foundFiles.has(filename)) continue;
+                    
                     const videoUrl = `${assetsBase}/${folderName}/Videos/${filename}`;
                     
                     try {
                         const response = await fetch(videoUrl, { method: 'HEAD' });
                         if (response.ok) {
                             media.push({ filename, url: videoUrl, type: 'video' });
+                            foundFiles.add(filename);
                             console.log(`Found video: ${filename} for ${lotId}`);
                         }
                     } catch (e) {
