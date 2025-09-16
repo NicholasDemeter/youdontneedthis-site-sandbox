@@ -89,8 +89,8 @@ function displayProducts(products) {
     grid.innerHTML = products.map(product => {
         const thumbnailUrl = `${siteConfig.assetsBase}/${product.FOLDER_NAME}/${product.LOT}_THUMBNAIL.jpg`;
         
-        // Extract first sentence from description for grid display
-        const firstSentence = product.DESCRIPTION.split('.')[0] + '.';
+        // Extract first sentence from DESCRIPTION column (Column E)
+        const firstSentence = product.DESCRIPTION ? product.DESCRIPTION.split('.')[0] + '.' : '';
         
         return `
             <div class="product-card" onclick="openProductDetail('${product.LOT}')">
